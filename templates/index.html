@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Health Monitoring and Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>API - Brain Health Monitoring and Analysis</h1>
+    <pre style="font-size: 20px; font-family: 'Courier New', Courier, monospace;">
+        Sumitha Murthi K G
+        23MIC0141
+    </pre>
+    <!-- Cognitive Test Submission Form -->
+    <h3>Cognitive Function Test Submission</h3>
+    <form id="cognitiveTestForm" onsubmit="event.preventDefault(); submitCognitiveTest();">
+        <input id="userIdTest" type="number" placeholder="User ID">
+        <input id="memoryTestScore" type="number" placeholder="Memory Score">
+        <input id="attentionTestScore" type="number" placeholder="Attention Score">
+        <input id="timeTaken" type="number" placeholder="Time Taken">
+        <button type="submit">Submit Cognitive Test</button>
+    </form>
+    <p id="testResponse"></p>
+
+    <!-- Cognitive Decline Risk Assessment Form -->
+    <h3>Cognitive Decline Risk Assessment</h3>
+    <form id="riskAssessmentForm" onsubmit="event.preventDefault(); assessRisk();">
+        <input id="userIdRisk" type="number" placeholder="User ID" required>
+        <input id="initialScore" type="number" placeholder="Initial Cognitive Test Score" required>
+        <input id="currentScore" type="number" placeholder="Current Cognitive Test Score" required>
+        <input id="timeBetweenTests" type="number" placeholder="Time Between Tests (in days)" required>
+        <input id="lifestyle" type="number" min="0" max="1" step="0.01" placeholder="Lifestyle Factor (0-1)" required>
+        <input id="familyandmedicalHistory" type="number" min="0" max="1" step="0.01" placeholder="Medical and Family History (0-1)" required>
+        <button type="submit">Assess Risk</button>
+    </form>
+    <p id="riskResponse"></p>
+
+
+    <!-- Brain Health Score Calculation Form -->
+    <h3>Brain Health Score Calculation</h3>
+    <form id="brainHealthScoreForm" onsubmit="event.preventDefault(); getBrainHealthScore();">
+        <input id="userIdScore" type="number" placeholder="User ID" required>
+        <input id="memoryScoreInput" type="number" placeholder="Memory Score" required>
+        <input id="timeMemoryInput" type="number" placeholder="Time for Memory Test" required>
+        <input id="attentionScoreInput" type="number" placeholder="Attention Score" required>
+        <input id="timeAttentionInput" type="number" placeholder="Time for Attention Test" required>
+        <input id="stressLevelInput" type="number" placeholder="Stress Level" required>
+        <button type="submit">Calculate Brain Health Score</button>
+    </form>
+    <!-- Display the result here -->
+    <p id="scoreResponse"></p>
+
+
+    <!-- Mental Fatigue Score Calculation Form -->
+    <h3>Mental Fatigue Monitoring</h3>
+    <form id="mentalFatigueForm" onsubmit="event.preventDefault(); getMentalFatigueScore();">
+        <input id="userIdMFS" type="number" placeholder="User ID">
+        <input id="totalTaskTimeInput" type="number" placeholder="Total Task Time">
+        <input id="baselineCognitiveScoreInput" type="number" placeholder="Baseline Cognitive Score">
+        <input id="sleepLevelInput" type="number" placeholder="Sleep Level (0-10)">
+        <input id="hoursSinceRestInput" type="number" placeholder="Hours Since Rest">
+        <input id="currentCognitiveScoreInput" type="number" placeholder="Current Cognitive Score">
+        <button type="submit">Calculate Mental Fatigue Score</button>
+    </form>
+    <p id="fatigueResponse"></p>
+
+    <!-- Sleep and Brain Health Correlation Analysis Form -->
+    <h3>Sleep and Brain Health Correlation Analysis</h3>
+    <form id="sleepCorrelationForm" onsubmit="event.preventDefault(); analyzeSleepBrainHealthCorrelation();">
+        <input id="userId" type="number" placeholder="User ID">
+        <input id="numObservations" type="number" placeholder="Number of Observations">
+        <input id="sleepQualityInput" type="text" placeholder="Sleep Quality (comma-separated)">
+        <input id="testScoresInput" type="text" placeholder="Test Scores (comma-separated)">
+        <button type="submit">Analyze Correlation</button>
+    </form>
+    <p id="correlationResponse"></p>
+
+    <!-- Mood and Cognitive Function Tracking Form -->
+    <h3>Mood and Cognitive Function Tracking</h3>
+    <form id="moodCognitiveForm" onsubmit="event.preventDefault(); trackMoodAndCognitiveFunction();">
+        <input id="userIdMCS" type="number" placeholder="User ID">
+        <input id="dailyMoodScoresInput" type="text" placeholder="Daily Mood Scores (comma-separated)">
+        <input id="moodScoreInput" type="number" placeholder="Mood Score">
+        <input id="cognitiveScoreInput" type="number" placeholder="Cognitive Score">
+        <button type="submit">Track Mood and Cognitive Function</button>
+    </form>
+    <p id="mcsResponse"></p>
+
+
+    <!-- Brain Health Intervention Suggestion -->
+    <h3>Brain Health Intervention Suggestion</h3>
+    <form id="brainHealthInterventionForm" onsubmit="event.preventDefault(); suggestBrainHealthIntervention();">
+        <input id="userIdBHS" type="number" placeholder="User ID">
+        <input id="cognitiveScoreInput" type="number" placeholder="Cognitive Score">
+        <input id="sleepQualityInput" type="number" placeholder="Sleep Quality">
+        <input id="exerciseInput" type="number" placeholder="Exercise Level">
+        <input id="dietInput" type="number" placeholder="Diet Quality">
+        <input id="mentalHealthScoreInput" type="number" placeholder="Mental Health Score">
+        <button type="submit">Suggest Brain Health Intervention</button>
+    </form>
+    <p id="bhsResponse"></p>
+
+   <!-- Brain Health Decline Alerts Form -->
+    <h3>Brain Health Decline Alerts</h3>
+    <form id="brainHealthAlertForm" onsubmit="event.preventDefault(); checkBrainHealthDecline();">
+        <input id="userIdAlert" type="number" placeholder="User ID">
+        <input id="newScoreInput" type="number" placeholder="New Score">
+        <input id="oldScoreInput" type="number" placeholder="Old Score">
+        <button type="submit">Check Brain Health Decline</button>
+    </form>
+    <p id="alertResponse"></p>
+
+    <!-- Brain Health for Age Group Comparison Form -->
+    <h3>Brain Health for Age Group Comparison</h3>
+    <form id="brainHealthComparisonForm" onsubmit="event.preventDefault(); compareBrainHealthForAgeGroup();">
+        <input id="userIdComparison" type="number" placeholder="User ID">
+        <input id="brainHealthScoreInput" type="number" placeholder="Brain Health Score">
+        <input id="cognitiveTestResultInput" type="number" placeholder="Cognitive Test Result">
+        <input id="averageBrainHealthInput" type="number" placeholder="Average Brain Health">
+        <input id="averageCognitiveScoreInput" type="number" placeholder="Average Cognitive Score">
+        <button type="submit">Compare Brain Health for Age Group</button>
+    </form>
+    <p id="comparisonResponse"></p>
+
+    <!-- Neuroplasticity Enhancement Recommendation Form -->
+    <h3>Neuroplasticity Enhancement Recommendation</h3>
+    <form id="neuroplasticityForm" onsubmit="event.preventDefault(); recommendNeuroplasticityEnhancement();">
+        <input id="userIdNeuroplasticity" type="number" placeholder="User ID">
+        <input id="cognitivePerformanceInput" type="number" placeholder="Cognitive Performance">
+        <input id="lifestyleHabitsInput" type="number" placeholder="Lifestyle Habits">
+        <input id="stressLevelInput" type="number" placeholder="Stress Level">
+        <button type="submit">Get Neuroplasticity Recommendation</button>
+    </form>
+    <p id="neuroplasticityResponse"></p>
+
+
+
+    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+</body>
+</html>
